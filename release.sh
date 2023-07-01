@@ -85,7 +85,7 @@ RELEASE_TAG="v${VERSION}"
 
 [ "$COMMIT_CHANGES" = no ] && exit 0
 
-set -e
+set -ex
 git add system.json ChangeLog.md
 git commit -m "preparing release $RELEASE_TAG"
 git push
