@@ -24,24 +24,18 @@ jobs:
         working-directory: ./
         run: zip -r ./system.zip ./assets ./fonts ./lang ./packs/*.db ./src ./tinymce index.js index.js.map style.css system.json template.json LICENSE.txt ChangeLog.md
 
-      # # Get the version from 'module.json'
-      # - name: Get Version (old)
-      #   shell: bash
-      #   id: get-version-old
-      #   run: echo "::set-output name=version::${GITHUB_REF#refs/*/}"
-
       # Get the version 
       - name: Get Version
         shell: bash
         id: get-version
         run: echo "version=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
-      # Generate changelog for release body
-      - name: Changelog
-        id: Changelog
-        uses: scottbrenner/generate-changelog-action@master
-        env:
-          REPO: ${{ github.repository }}
+      # # Generate changelog for release body
+      # - name: Changelog
+      #   id: Changelog
+      #   uses: scottbrenner/generate-changelog-action@master
+      #   env:
+      #     REPO: ${{ github.repository }}
 
       # Create a release for this specific version
       - name: Create Release
@@ -50,8 +44,7 @@ jobs:
         with:
           allowUpdates: true # set this to false if you want to prevent updating existing releases
           name: ${{ steps.get-version.outputs.version }}
-          body: |
-            ${{ steps.Changelog.outputs.changelog }}
+          bodyFile: ChangeLog.md
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
