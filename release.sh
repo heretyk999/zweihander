@@ -90,4 +90,4 @@ git add system.json ChangeLog.md
 git commit -m "preparing release $RELEASE_TAG"
 git push
 git tag "$RELEASE_TAG"
-git push origin "$RELASE_TAG"
+git push origin "$RELEASE_TAG"
